@@ -11,6 +11,9 @@ import java.io.Serializable;
 
 @Entity  // indicates that this class is a JPA entity
 public class Employee implements Serializable {
+    public Employee(){
+
+    }
 
     public Long getId() {
         return id;
@@ -61,13 +64,25 @@ public class Employee implements Serializable {
     private String position;
     private Double salary;
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    @ManyToOne  // Many employees belong to one department
+    @JoinColumn(name = "department_id", nullable = false) // Foreign key column
+    private Department department;
+
     // Constructor excluding the 'id' field since it's auto-generated
-    public Employee(String name, String email, String position, Double salary) {
+    public Employee(String name, String email, String position, Double salary, Department department) {
         this.name = name;
         this.email = email;
         this.position = position;
         this.salary = salary;
+        this.department = department;
     }
-    public Employee() {
-    }
+
 }
